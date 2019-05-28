@@ -1,0 +1,56 @@
+version: '3.1'
+
+services:
+    s1.namenode.hadoop:
+      image: centos/hadoop:1.1
+      container_name: s1.namenode.hadoop
+      hostname: 's1.namenode.hadoop'
+      ports:
+        - '10022:22'
+        - '9001:9001'
+        - '50070:50070'
+      environment:
+        REPLICATION: 2
+        NAME_NODE: s1.namenode.hadoop
+        DATA_NODE: s1.datanode.hadoop s2.datanode.hadoop
+      volumes:
+        - /docker/hadoop/s1.namenode.hadoop:/data/hadoop
+      networks:
+        - hadoop
+
+    s1.datanode.hadoop:
+      image: centos/hadoop:1.1
+      container_name: s1.datanode.hadoop
+      hostname: 's1.datanode.hadoop'
+      ports:
+        - '10023:22'
+        - '9002:9001'
+        - '50076:50075'
+      volumes:
+        - /docker/hadoop/s1.datanode.hadoop:/data/hadoop
+      environment:
+        REPLICATION: 2
+        NAME_NODE: s1.namenode.hadoop
+        DATA_NODE: s1.datanode.hadoop s2.datanode.hadoop
+      networks:
+        - hadoop
+
+    s2.datanode.hadoop:
+      image: centos/hadoop:1.1
+      container_name: s2.datanode.hadoop
+      hostname: 's2.datanode.hadoop'
+      ports:
+        - '10024:22'
+        - '9003:9001'
+        - '50077:50075'
+      volumes:
+        - /docker/hadoop/s2.datanode.hadoop:/data/hadoop
+      environment:
+        REPLICATION: 2
+        NAME_NODE: s1.namenode.hadoop
+        DATA_NODE: s1.datanode.hadoop s2.datanode.hadoop
+      networks:
+        - hadoop
+
+networks:
+    hadoop:

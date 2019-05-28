@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property>
+        <name>dfs.namenode.secondary.http-address</name>
+        <value>HOSTNAME:50090</value>
+    </property>
+    <property>
+        <name>dfs.replication</name>
+        <value>HADOOP_REPLICATION</value>
+    </property>
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:HADOOP_NAME</value>
+    </property>
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:HADOOP_DATA</value>
+    </property>
+</configuration>
